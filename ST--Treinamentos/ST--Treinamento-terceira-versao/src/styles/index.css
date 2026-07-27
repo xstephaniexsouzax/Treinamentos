@@ -1,0 +1,115 @@
+@import "tailwindcss";
+
+/* ==========================================================================
+   TOKENS DE TEMA — únicas fontes da verdade para cor no projeto.
+   As variáveis abaixo trocam de valor via .dark no <html>, e o Tailwind
+   gera classes utilitárias (bg-surface, text-ink, border-line, bg-brand...)
+   que já respondem ao dark mode SOZINHAS, sem precisar do prefixo dark:
+   em cada componente. Isso substitui os hex mágicos hardcoded (#1f9443,
+   #0f172a, #1e293b, #161f30, #16171d, #1f2028 etc.) espalhados pelo app.
+   ========================================================================== */
+@theme {
+  --color-brand: var(--accent);
+  --color-brand-strong: var(--text-h);
+  --color-surface: var(--bg);
+  --color-surface-card: var(--card);
+  --color-ink: var(--text);
+  --color-ink-strong: var(--text-h);
+  --color-line: var(--border);
+}
+
+/* Suporte ao Dark Mode manual via classe .dark no HTML */
+@variant dark (&:where(.dark, .dark *));
+
+/* ==========================================================================
+   1. VARIÁVEIS DE TEMA CLARO
+   ========================================================================== */
+:root {
+  --text: #334155;        /* Slate 700 */
+  --text-h: #0b2545;      /* Azul Escuro da marca para títulos */
+  --bg: #f8fafc;          /* Slate 50 para o fundo limpo */
+  --card: #ffffff;        /* Superfície de cards/painéis */
+  --code-bg: #f1f5f9;
+  --border: #e2e8f0;
+
+  --accent: #1f9443;      /* Verde oficial da ST */
+  --accent-bg: rgba(31, 148, 67, 0.08);
+  --accent-border: rgba(31, 148, 67, 0.4);
+
+  --sans: system-ui, -apple-system, sans-serif;
+  --mono: ui-monospace, Consolas, monospace;
+
+  font-family: var(--sans);
+  color-scheme: light;
+  color: var(--text);
+  background-color: var(--bg);
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ==========================================================================
+   2. VARIÁVEIS DE TEMA ESCURO
+   ========================================================================== */
+html.dark {
+  --text: #cbd5e1;        /* Texto claro suave */
+  --text-h: #ffffff;      /* Títulos em branco */
+  --bg: #0f172a;          /* Fundo Slate 900 */
+  --card: #1e293b;        /* Superfície de cards/painéis — Slate 800 (valor único, substitui #161f30/#16171d/#1f2028) */
+  --border: #334155;
+  --code-bg: #1e293b;     /* Slate 800 */
+  --accent: #4ade80;
+  --accent-bg: rgba(74, 222, 128, 0.15);
+  --accent-border: rgba(74, 222, 128, 0.5);
+  color-scheme: dark;
+}
+
+/* ==========================================================================
+   3. ESTRUTURA GLOBAL DA APLICAÇÃO
+   ========================================================================== */
+html,
+body,
+#root {
+  margin: 0;
+  padding: 0;
+  background-color: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  width: 100%;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+#root {
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+}
+
+/* Foco visível consistente para navegação por teclado (WCAG 2.4.7) */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+/* Respeita usuários que pedem menos movimento no sistema operacional */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Animação suave para carregamento das telas */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.25s ease-out forwards;
+}
