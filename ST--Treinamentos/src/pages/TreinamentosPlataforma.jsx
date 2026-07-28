@@ -121,124 +121,95 @@ export default function TreinamentosPlataforma() {
   // =========================================================================
   // 2. CASO A: "QUEM SOMOS" (TOTALMENTE DINÂMICO DE quemSomosData.js)
   // =========================================================================
-  if (tipo === 'quem-somos') {
-    const chaveProd = produto?.toUpperCase() || 'TELEBRAS';
-    
-    // Busca no arquivo quemSomosData
-    const dadosQuemSomos = quemSomosData[chaveProd] || quemSomosData['TELEBRAS'];
+  // =========================================================================
+// 2. CASO A: "QUEM SOMOS" (TOTALMENTE ADAPTÁVEL E DINÂMICO)
+// =========================================================================
+if (tipo === 'quem-somos') {
+  const chaveProd = produto?.toUpperCase() || 'TELEBRAS';
+  
+  // Busca no arquivo quemSomosData
+  const dadosQuemSomos = quemSomosData[chaveProd] || quemSomosData['TELEBRAS'];
+  const listaEquipe = dadosQuemSomos?.equipe || [];
 
-    return (
-      <div className="w-full max-w-5xl mx-auto px-4 py-6 space-y-8 animate-fade-in text-left pb-12">
-         {/* Apresentação do Produto */}
-        <div className="p-8 bg-white dark:bg-surface-card rounded-3xl border border-slate-200 dark:border-slate-700 space-y-6 shadow-xs">
-          
-          <div className="flex items-center gap-3 text-brand-strong dark:text-white">
-            <div className="p-2 bg-brand/10 text-brand rounded-xl">
-              <Globe2 size={24} />
-            </div>
-            <h2 className="text-2xl font-bold">{dadosQuemSomos?.titulo || chaveProd}</h2>
+  return (
+    <div className="w-full max-w-5xl mx-auto px-4 py-6 space-y-8 animate-fade-in text-left pb-12">
+      {/* Apresentação do Produto */}
+      <div className="p-8 bg-white dark:bg-surface-card rounded-3xl border border-slate-200 dark:border-slate-700 space-y-6 shadow-xs">
+        <div className="flex items-center gap-3 text-brand-strong dark:text-white">
+          <div className="p-2 bg-brand/10 text-brand rounded-xl">
+            <Globe2 size={24} />
           </div>
-          <p className="text-justify text-slate-600 dark:text-slate-300 text-sm sm:text-base leading-relaxed">
-            {dadosQuemSomos?.descricao || 'Informações sobre o produto ainda não estão disponíveis.'}
-          </p>
+          <h2 className="text-2xl font-bold">{dadosQuemSomos?.titulo || chaveProd}</h2>
+        </div>
+        <p className="text-justify text-slate-600 dark:text-slate-300 text-sm sm:text-base leading-relaxed">
+          {dadosQuemSomos?.descricao || 'Informações sobre o produto ainda não estão disponíveis.'}
+        </p>
+      </div>
+
+      {/* Rotina de Qualidade e Capacitação (Grid Dinâmico) */}
+      <div className="p-8 bg-white dark:bg-surface-card rounded-3xl border border-slate-200 dark:border-slate-700 space-y-6 shadow-xs">
+        <div className="flex items-center gap-3 text-brand-strong dark:text-white">
+          <div className="p-2 bg-brand/10 text-brand rounded-xl">
+            <CheckCircle size={24} />
+          </div>
+          <h2 className="text-2xl font-bold">Gestão Responsável pelo Produto</h2>
         </div>
 
-        {/* Rotina de Qualidade e Capacitação */}
-        <div className="p-8 bg-white dark:bg-surface-card rounded-3xl border border-slate-200 dark:border-slate-700 space-y-6 shadow-xs">
+        <p className="text-justify text-slate-600 dark:text-slate-300 text-sm sm:text-base leading-relaxed">
+          Nossa estrutura operacional integra a instrução técnica ao acompanhamento contínuo da qualidade, garantindo que o aprendizado se converta em um atendimento de excelência diário.
+        </p>
 
-          
-          
-          <div className="flex items-center gap-3 text-brand-strong dark:text-white">
-            <div className="p-2 bg-brand/10 text-brand rounded-xl">
-              <CheckCircle size={24} />
-            </div>
-            <h2 className="text-2xl font-bold">Rotina de Qualidade e Capacitação</h2>
-          </div>
-
-          <p className="text-justify text-slate-600 dark:text-slate-300 text-sm sm:text-base leading-relaxed">
-            Nossa estrutura operacional integra a instrução técnica ao acompanhamento contínuo da qualidade, garantindo que o aprendizado se converta em um atendimento de excelência diário.
-          </p>
-           
-
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-2">
-            {/* Supervisão */}
-            <div className="p-5 bg-slate-50 dark:bg-surface rounded-2xl border border-slate-200/80 dark:border-slate-700/60 space-y-3">
-              <div className="flex items-center gap-2 font-bold text-slate-900 dark:text-white">
-                <CheckCircle size={18} className="text-brand" />
-                <h4>Supervisão Operacional</h4>
-              </div>
-              {dadosQuemSomos?.equipe?.supervisao?.map((item, i) => (
-                <div key={i} className="pt-2 border-t border-slate-200/80 dark:border-slate-700/60">
-                  <p className="font-extrabold text-base text-slate-900 dark:text-white">{item.nome}</p>
-                  <p className="text-xs text-slate-500 dark:text-slate-400 font-medium">{item.cargo}</p>
+        {/* 🚀 RENDERING DINÂMICO DOS SETORES */}
+        <div className={`grid grid-cols-1 md:grid-cols-${Math.min(listaEquipe.length, 3)} gap-4 pt-2`}>
+          {listaEquipe.map((blocoSetor, index) => (
+            <div 
+              key={index} 
+              className="p-5 bg-slate-50 dark:bg-surface rounded-2xl border border-slate-200/80 dark:border-slate-700/60 space-y-3 flex flex-col justify-between"
+            >
+              <div className="space-y-3">
+                <div className="flex items-center gap-2 font-bold text-slate-900 dark:text-white">
+                  <Users size={18} className="text-brand" />
+                  <h4>{blocoSetor.setor}</h4>
                 </div>
-              ))}
-              <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 leading-relaxed pt-1">
-                Coordenação da operação, suporte às equipes e garantia do cumprimento das rotinas técnicas e de qualidade.
-              </p>
-            </div>
 
-            {/* Instrutoria */}
-            <div className="p-5 bg-slate-50 dark:bg-surface rounded-2xl border border-slate-200/80 dark:border-slate-700/60 space-y-3">
-              <div className="flex items-center gap-2 font-bold text-slate-900 dark:text-white">
-                <Users size={18} className="text-brand" />
-                <h4>Instrutoria de Treinamento</h4>
+                {/* Mapeamento dos Membros do Setor */}
+                {blocoSetor.membros?.map((membro, idx) => (
+                  <div key={idx} className="pt-2 border-t border-slate-200/80 dark:border-slate-700/60">
+                    <p className="font-extrabold text-base text-slate-900 dark:text-white">{membro.nome}</p>
+                    <p className="text-xs text-slate-500 dark:text-slate-400 font-medium">{membro.cargo}</p>
+                  </div>
+                ))}
               </div>
-              {dadosQuemSomos?.equipe?.instrutor?.map((item, i) => (
-                <div key={i} className="pt-2 border-t border-slate-200/80 dark:border-slate-700/60">
-                  <p className="font-extrabold text-base text-slate-900 dark:text-white">{item.nome}</p>
-                  <p className="text-xs text-slate-500 dark:text-slate-400 font-medium">{item.cargo}</p>
-                </div>
-              ))}
-              <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 leading-relaxed pt-1">
-                Capacitação inicial e contínua dos operadores, alinhamento de procedimentos técnicos e atualização das instruções operacionais.
-              </p>
-            </div>
 
-            {/* Monitoria */}
-            <div className="p-5 bg-slate-50 dark:bg-surface rounded-2xl border border-slate-200/80 dark:border-slate-700/60 space-y-3">
-              <div className="flex items-center gap-2 font-bold text-slate-900 dark:text-white">
-                <Headset size={18} className="text-blue-500" />
-                <h4>Monitoria de Qualidade</h4>
-              </div>
-              {dadosQuemSomos?.equipe?.qualidade?.map((item, i) => (
-                <div key={i} className="pt-2 border-t border-slate-200/80 dark:border-slate-700/60">
-                  <p className="font-extrabold text-base text-slate-900 dark:text-white">{item.nome}</p>
-                  <p className="text-xs text-slate-500 dark:text-slate-400 font-medium">{item.cargo}</p>
-                </div>
-              ))}
-              <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 leading-relaxed pt-1">
-                Acompanhamento de chamados, avaliação de performance e feedbacks direcionados para garantir a conformidade dos atendimentos.
-              </p>
+              {/* Descrição do Setor se existir */}
+              {blocoSetor.descricaoSetor && (
+                <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 leading-relaxed pt-2">
+                  {blocoSetor.descricaoSetor}
+                </p>
+              )}
             </div>
-          </div>
-        </div>
-
-        {/* Seção A Parceria */}
-        <div className="p-8 bg-white dark:bg-surface-card rounded-3xl border border-slate-200 dark:border-slate-700 space-y-4 shadow-xs">
-          <div className="flex items-center gap-3 text-brand-strong dark:text-white">
-            <div className="p-2 bg-purple-50 dark:bg-purple-950/50 text-purple-600 dark:text-purple-400 rounded-xl">
-              <Handshake size={24} />
-            </div>
-            <h2 className="text-2xl font-bold">A Parceria</h2>
-          </div>
-
-          <div className="space-y-3 text-slate-600 dark:text-slate-300 text-sm sm:text-base leading-relaxed">
-            <p className="text-justify">
-              A parceria entre a <strong className="font-bold text-slate-900 dark:text-white">ST Serviços Empresariais</strong> e a <strong className="font-bold text-slate-900 dark:text-white">{chaveProd}</strong> tem como objetivo proporcionar um atendimento de excelência aos clientes, garantindo suporte eficiente, agilidade na tratativa das demandas e uma experiência alinhada aos padrões de qualidade estabelecidos pela empresa.
-            </p>
-            <p className="text-justify">
-              O setor de qualidade desempenha um papel fundamental nesse processo, assegurando a padronização das rotinas, o cumprimento das diretrizes operacionais e a melhoria contínua dos processos de comunicação.
-            </p>
-            <p className="text-justify">
-              Nossa equipe atua com comprometimento, profissionalismo e foco na satisfação dos clientes, contribuindo para fortalecer a relação entre a {chaveProd} e seus usuários por meio de um atendimento humanizado e orientado a resultados.
-            </p>
-          </div>
+          ))}
         </div>
       </div>
-    );
-  }
 
+      {/* Seção A Parceria */}
+      <div className="p-8 bg-white dark:bg-surface-card rounded-3xl border border-slate-200 dark:border-slate-700 space-y-4 shadow-xs">
+        <div className="flex items-center gap-3 text-brand-strong dark:text-white">
+          <div className="p-2 bg-purple-50 dark:bg-purple-950/50 text-purple-600 dark:text-purple-400 rounded-xl">
+            <Handshake size={24} />
+          </div>
+          <h2 className="text-2xl font-bold">A Parceria</h2>
+        </div>
+
+        <div className="space-y-3 text-slate-600 dark:text-slate-300 text-sm sm:text-base leading-relaxed">
+          <p className="text-justify">
+            A parceria entre a <strong className="font-bold text-slate-900 dark:text-white">ST Serviços Empresariais</strong> e a <strong className="font-bold text-slate-900 dark:text-white">{chaveProd}</strong> tem como objetivo proporcionar um atendimento de excelência aos clientes, garantindo suporte eficiente, agilidade na tratativa das demandas e uma experiência alinhada aos padrões de qualidade estabelecidos pela empresa.
+          </p>
+        </div>
+      </div>
+    </div>
+  );
+}
   // =========================================================================
   // 3. CASO B: "CAPACITAÇÃO" E "RECICLAGEM"
   // =========================================================================
