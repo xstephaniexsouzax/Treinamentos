@@ -103,7 +103,7 @@ export default function ContatoInstrutor() {
             onChange={handleChange}
             placeholder="Digite seu nome completo"
             required
-            className="w-full p-3 rounded-xl border border-slate-300 dark:border-slate-600/80 bg-slate-50 dark:bg-[#0f172a] text-slate-900 dark:text-slate-100 placeholder:text-slate-400 dark:placeholder:text-slate-400 focus:ring-2 focus:ring-[#1f9443] focus:border-transparent outline-none transition-all text-sm"
+            className="w-full p-3 rounded-xl border border-slate-300 dark:border-slate-600/80 bg-slate-50 dark:bg-[#0f172a] text-slate-900 dark:text-slate-100 placeholder:text-slate-400 dark:placeholder:text-slate-400 focus:ring-2 focus:ring-brand focus:border-transparent outline-none transition-all text-sm"
           />
         </div>
 
@@ -117,7 +117,7 @@ export default function ContatoInstrutor() {
               value={formData.produto}
               onChange={handleChange}
               required
-              className="w-full p-3 rounded-xl border border-slate-300 dark:border-slate-600/80 bg-slate-50 dark:bg-[#0f172a] text-slate-900 dark:text-slate-100 focus:ring-2 focus:ring-[#1f9443] focus:border-transparent outline-none transition-all text-sm"
+              className="w-full p-3 rounded-xl border border-slate-300 dark:border-slate-600/80 bg-slate-50 dark:bg-[#0f172a] text-slate-900 dark:text-slate-100 focus:ring-2 focus:ring-brand focus:border-transparent outline-none transition-all text-sm"
             >
               <option value="" disabled>-- Selecione o Produto --</option>
               <option value="TELEBRAS">TELEBRAS</option>
@@ -137,7 +137,7 @@ export default function ContatoInstrutor() {
               onChange={handleChange}
               placeholder="Nome do supervisor"
               required
-              className="w-full p-3 rounded-xl border border-slate-300 dark:border-slate-600/80 bg-slate-50 dark:bg-[#0f172a] text-slate-900 dark:text-slate-100 placeholder:text-slate-400 dark:placeholder:text-slate-400 focus:ring-2 focus:ring-[#1f9443] focus:border-transparent outline-none transition-all text-sm"
+              className="w-full p-3 rounded-xl border border-slate-300 dark:border-slate-600/80 bg-slate-50 dark:bg-[#0f172a] text-slate-900 dark:text-slate-100 placeholder:text-slate-400 dark:placeholder:text-slate-400 focus:ring-2 focus:ring-brand focus:border-transparent outline-none transition-all text-sm"
             />
           </div>
         </div>
@@ -154,7 +154,7 @@ export default function ContatoInstrutor() {
             placeholder="DD/MM/AAAA"
             maxLength={10}
             required
-            className="w-full p-3 rounded-xl border border-slate-300 dark:border-slate-600/80 bg-slate-50 dark:bg-[#0f172a] text-slate-900 dark:text-slate-100 placeholder:text-slate-400 dark:placeholder:text-slate-400 focus:ring-2 focus:ring-[#1f9443] focus:border-transparent outline-none transition-all text-sm"
+            className="w-full p-3 rounded-xl border border-slate-300 dark:border-slate-600/80 bg-slate-50 dark:bg-[#0f172a] text-slate-900 dark:text-slate-100 placeholder:text-slate-400 dark:placeholder:text-slate-400 focus:ring-2 focus:ring-brand focus:border-transparent outline-none transition-all text-sm"
           />
         </div>
 
@@ -169,14 +169,14 @@ export default function ContatoInstrutor() {
             onChange={handleChange}
             placeholder="Qual dúvida você gostaria de tirar sobre o procedimento ou aula?"
             required
-            className="w-full p-3 rounded-xl border border-slate-300 dark:border-slate-600/80 bg-slate-50 dark:bg-[#0f172a] text-slate-900 dark:text-slate-100 placeholder:text-slate-400 dark:placeholder:text-slate-400 focus:ring-2 focus:ring-[#1f9443] focus:border-transparent outline-none transition-all text-sm"
+            className="w-full p-3 rounded-xl border border-slate-300 dark:border-slate-600/80 bg-slate-50 dark:bg-[#0f172a] text-slate-900 dark:text-slate-100 placeholder:text-slate-400 dark:placeholder:text-slate-400 focus:ring-2 focus:ring-brand focus:border-transparent outline-none transition-all text-sm"
           />
         </div>
 
         <button
           type="submit"
           disabled={isSubmitting}
-          className="mt-2 w-full py-3.5 bg-[#1f9443] hover:bg-[#1a7f39] dark:bg-[#22c55e] dark:hover:bg-[#16a34a] disabled:opacity-50 text-white font-bold uppercase tracking-wider text-xs rounded-xl transition-all shadow-sm cursor-pointer"
+          className="mt-2 w-full py-3.5 bg-brand hover:opacity-90 disabled:opacity-50 text-white font-bold uppercase tracking-wider text-xs rounded-xl transition-all shadow-sm cursor-pointer"
         >
           {isSubmitting ? 'Enviando...' : 'Enviar Dúvida ao Instrutor'}
         </button>

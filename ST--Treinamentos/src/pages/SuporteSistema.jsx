@@ -138,7 +138,7 @@ export default function SuporteSistema() {
             onChange={handleChange}
             placeholder="Digite seu nome completo"
             required
-            className="w-full p-3 rounded-xl border border-slate-300 dark:border-slate-600/80 bg-slate-50 dark:bg-[#0f172a] text-slate-900 dark:text-slate-100 placeholder:text-slate-400 dark:placeholder:text-slate-400 focus:ring-2 focus:ring-[#1f9443] focus:border-transparent outline-none transition-all text-sm"
+            className="w-full p-3 rounded-xl border border-slate-300 dark:border-slate-600/80 bg-slate-50 dark:bg-[#0f172a] text-slate-900 dark:text-slate-100 placeholder:text-slate-400 dark:placeholder:text-slate-400 focus:ring-2 focus:ring-brand focus:border-transparent outline-none transition-all text-sm"
           />
         </div>
 
@@ -152,7 +152,7 @@ export default function SuporteSistema() {
               value={formData.produto}
               onChange={handleChange}
               required
-              className="w-full p-3 rounded-xl border border-slate-300 dark:border-slate-600/80 bg-slate-50 dark:bg-[#0f172a] text-slate-900 dark:text-slate-100 focus:ring-2 focus:ring-[#1f9443] focus:border-transparent outline-none transition-all text-sm"
+              className="w-full p-3 rounded-xl border border-slate-300 dark:border-slate-600/80 bg-slate-50 dark:bg-[#0f172a] text-slate-900 dark:text-slate-100 focus:ring-2 focus:ring-brand focus:border-transparent outline-none transition-all text-sm"
             >
               <option value="" disabled>-- Selecione o Produto --</option>
               <option value="TELEBRAS">TELEBRAS</option>
@@ -172,7 +172,7 @@ export default function SuporteSistema() {
               onChange={handleChange}
               placeholder="Nome do supervisor"
               required
-              className="w-full p-3 rounded-xl border border-slate-300 dark:border-slate-600/80 bg-slate-50 dark:bg-[#0f172a] text-slate-900 dark:text-slate-100 placeholder:text-slate-400 dark:placeholder:text-slate-400 focus:ring-2 focus:ring-[#1f9443] focus:border-transparent outline-none transition-all text-sm"
+              className="w-full p-3 rounded-xl border border-slate-300 dark:border-slate-600/80 bg-slate-50 dark:bg-[#0f172a] text-slate-900 dark:text-slate-100 placeholder:text-slate-400 dark:placeholder:text-slate-400 focus:ring-2 focus:ring-brand focus:border-transparent outline-none transition-all text-sm"
             />
           </div>
         </div>
@@ -189,7 +189,7 @@ export default function SuporteSistema() {
             placeholder="DD/MM/AAAA"
             maxLength={10}
             required
-            className="w-full p-3 rounded-xl border border-slate-300 dark:border-slate-600/80 bg-slate-50 dark:bg-[#0f172a] text-slate-900 dark:text-slate-100 placeholder:text-slate-400 dark:placeholder:text-slate-400 focus:ring-2 focus:ring-[#1f9443] focus:border-transparent outline-none transition-all text-sm"
+            className="w-full p-3 rounded-xl border border-slate-300 dark:border-slate-600/80 bg-slate-50 dark:bg-[#0f172a] text-slate-900 dark:text-slate-100 placeholder:text-slate-400 dark:placeholder:text-slate-400 focus:ring-2 focus:ring-brand focus:border-transparent outline-none transition-all text-sm"
           />
         </div>
 
@@ -204,7 +204,7 @@ export default function SuporteSistema() {
             onChange={handleChange}
             placeholder="Descreva em detalhes o erro ocorrido..."
             required
-            className="w-full p-3 rounded-xl border border-slate-300 dark:border-slate-600/80 bg-slate-50 dark:bg-[#0f172a] text-slate-900 dark:text-slate-100 placeholder:text-slate-400 dark:placeholder:text-slate-400 focus:ring-2 focus:ring-[#1f9443] focus:border-transparent outline-none transition-all text-sm"
+            className="w-full p-3 rounded-xl border border-slate-300 dark:border-slate-600/80 bg-slate-50 dark:bg-[#0f172a] text-slate-900 dark:text-slate-100 placeholder:text-slate-400 dark:placeholder:text-slate-400 focus:ring-2 focus:ring-brand focus:border-transparent outline-none transition-all text-sm"
           />
         </div>
 
@@ -218,14 +218,14 @@ export default function SuporteSistema() {
             accept="image/*"
             onChange={handleChange}
             required
-            className="w-full p-2 text-sm text-slate-600 dark:text-slate-300 file:mr-4 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-xs file:font-bold file:bg-[#1f9443]/10 file:text-[#1f9443] dark:file:bg-[#1f9443]/20 dark:file:text-[#4ade80] hover:file:bg-[#1f9443]/20 transition-all cursor-pointer"
+            className="w-full p-2 text-sm text-slate-600 dark:text-slate-300 file:mr-4 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-xs file:font-bold file:bg-brand/10 file:text-brand dark:file:bg-brand/20 dark:file:text-brand hover:file:bg-brand/20 transition-all cursor-pointer"
           />
         </div>
 
         <button
           type="submit"
           disabled={isSubmitting}
-          className="mt-2 w-full py-3.5 bg-[#1f9443] hover:bg-[#1a7f39] dark:bg-[#22c55e] dark:hover:bg-[#16a34a] disabled:opacity-50 text-white font-bold uppercase tracking-wider text-xs rounded-xl transition-all shadow-sm cursor-pointer"
+          className="mt-2 w-full py-3.5 bg-brand hover:opacity-90 disabled:opacity-50 text-white font-bold uppercase tracking-wider text-xs rounded-xl transition-all shadow-sm cursor-pointer"
         >
           {isSubmitting ? 'Enviando...' : 'Enviar Chamado Técnico'}
         </button>

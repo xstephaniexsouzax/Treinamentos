@@ -22,7 +22,7 @@ export default function Faq() {
   return (
     <div className="max-w-3xl mx-auto space-y-6 animate-fade-in pb-12 text-left">
       <div className="flex items-center gap-3 border-b border-slate-200 dark:border-slate-800 pb-4">
-        <HelpCircle className="text-green-600 dark:text-green-400 h-8 w-8" />
+        <HelpCircle className="text-brand h-8 w-8" />
         <h1 className="text-3xl font-extrabold text-slate-900 dark:text-white">Perguntas Frequentes</h1>
       </div>
 
@@ -30,14 +30,14 @@ export default function Faq() {
         {perguntas.map((item, index) => (
           <div 
             key={index} 
-            className="border border-slate-200 dark:border-slate-800 rounded-2xl bg-white dark:bg-[#1f2028] overflow-hidden"
+            className="border border-slate-200 dark:border-slate-800 rounded-2xl bg-white dark:bg-surface-card overflow-hidden"
           >
             <button
               onClick={() => setAberto(aberto === index ? null : index)}
-              className="w-full flex items-center justify-between p-5 text-left font-semibold text-slate-900 dark:text-white hover:bg-slate-50 dark:hover:bg-[#16171d]/50 transition-colors"
+              className="w-full flex items-center justify-between p-5 text-left font-semibold text-slate-900 dark:text-white hover:bg-slate-50 dark:hover:bg-surface/50 transition-colors"
             >
               <span>{item.q}</span>
-              {aberto === index ? <ChevronUp size={18} className="text-green-600 dark:text-green-400" /> : <ChevronDown size={18} />}
+              {aberto === index ? <ChevronUp size={18} className="text-brand" /> : <ChevronDown size={18} />}
             </button>
             {aberto === index && (
               <div className="p-5 pt-0 text-sm text-slate-600 dark:text-slate-400 border-t border-slate-100 dark:border-slate-800/60 leading-relaxed">

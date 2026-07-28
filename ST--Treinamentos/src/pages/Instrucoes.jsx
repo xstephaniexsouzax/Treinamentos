@@ -78,7 +78,7 @@ export default function Instrucoes() {
       <div className="max-w-md mx-auto py-12 px-4 text-left">
         <form onSubmit={handleLogin} className="bg-white dark:bg-[#1e293b] p-8 rounded-3xl border border-slate-200 dark:border-slate-700 shadow-xl space-y-4">
           <div className="text-center space-y-2">
-            <ShieldCheck size={40} className="mx-auto text-emerald-600" />
+            <ShieldCheck size={40} className="mx-auto text-brand" />
             <h1 className="text-xl font-bold text-slate-900 dark:text-white">Acesso à Gestão</h1>
           </div>
 
@@ -99,7 +99,7 @@ export default function Instrucoes() {
             <input type="password" value={senha} onChange={(e) => setSenha(e.target.value)} className="w-full p-2.5 rounded-xl border dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-sm" required />
           </div>
 
-          <button type="submit" className="w-full py-3 bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded-xl text-sm cursor-pointer">Entrar</button>
+          <button type="submit" className="w-full py-3 bg-brand hover:opacity-90 text-white font-bold rounded-xl text-sm cursor-pointer">Entrar</button>
         </form>
       </div>
     );
@@ -113,7 +113,7 @@ export default function Instrucoes() {
           <p className="text-xs text-slate-500">Acompanhamento Independente de Quiz e Monitoria</p>
         </div>
         <div className="flex gap-2">
-          <button onClick={() => carregarDados(produto)} disabled={carregando} className="px-3.5 py-2 bg-emerald-50 text-emerald-600 text-xs font-bold rounded-xl flex items-center gap-2 border border-emerald-200 cursor-pointer">
+          <button onClick={() => carregarDados(produto)} disabled={carregando} className="px-3.5 py-2 bg-brand/10 text-brand text-xs font-bold rounded-xl flex items-center gap-2 border border-brand/30 cursor-pointer">
             <RefreshCw size={14} className={carregando ? 'animate-spin' : ''} />
             {carregando ? 'Sincronizando...' : 'Sincronizar'}
           </button>
@@ -125,9 +125,9 @@ export default function Instrucoes() {
 
       <div className="flex flex-wrap gap-4 justify-between items-center bg-white dark:bg-[#1e293b] p-4 rounded-2xl border border-slate-200 dark:border-slate-700">
         <div className="flex items-center gap-2">
-          <Filter size={16} className="text-emerald-600" />
+          <Filter size={16} className="text-brand" />
           {['TODOS', 'TELEBRAS', 'DPE', 'DETRAN'].map((p) => (
-            <button key={p} onClick={() => setProduto(p)} className={`px-3 py-1 rounded-lg text-xs font-bold transition-all cursor-pointer ${produto === p ? 'bg-emerald-600 text-white' : 'bg-slate-100 dark:bg-slate-800 hover:bg-slate-200'}`}>
+            <button key={p} onClick={() => setProduto(p)} className={`px-3 py-1 rounded-lg text-xs font-bold transition-all cursor-pointer ${produto === p ? 'bg-brand text-white' : 'bg-slate-100 dark:bg-slate-800 hover:bg-slate-200'}`}>
               {p}
             </button>
           ))}
@@ -223,13 +223,13 @@ export default function Instrucoes() {
 
             <div className="space-y-4 max-h-72 overflow-y-auto text-xs pr-1">
               <div>
-                <h3 className="font-bold text-emerald-600 mb-2">Histórico de Quizzes ({detalhesOperador.quizzes.length})</h3>
+                <h3 className="font-bold text-brand mb-2">Histórico de Quizzes ({detalhesOperador.quizzes.length})</h3>
                 {detalhesOperador.quizzes.length > 0 ? (
                   <div className="space-y-1.5">
                     {detalhesOperador.quizzes.map((q, idx) => (
                       <div key={idx} className="p-2.5 bg-slate-50 dark:bg-slate-800 rounded-xl flex justify-between items-center">
                         <span className="text-slate-600 dark:text-slate-300">{q.data} - {q.modulo}</span>
-                        <span className="font-bold text-emerald-600">{q.nota}%</span>
+                        <span className="font-bold text-brand">{q.nota}%</span>
                       </div>
                     ))}
                   </div>

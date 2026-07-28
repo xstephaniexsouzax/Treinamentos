@@ -32,7 +32,7 @@ export default function TreinamentosPlataforma() {
     return (
       <div className="w-full max-w-5xl mx-auto px-4 py-6 space-y-10 animate-fade-in text-left">
         <div className="relative overflow-hidden rounded-[40px] p-8 sm:p-16 text-white shadow-2xl transition-all
-          bg-[linear-gradient(115deg,#1f9443_0%,#0ea5e9_35%,#a855f7_70%,#f97316_100%)]">
+          bg-[linear-gradient(115deg,var(--accent)_0%,#0ea5e9_35%,#a855f7_70%,#f97316_100%)]">
           <div className="relative z-10 max-w-2xl space-y-6">
             <span className="inline-block rounded-full bg-white/20 backdrop-blur-md px-4 py-1.5 text-xs font-bold uppercase tracking-widest border border-white/30">
               Capacitação Interna
@@ -55,9 +55,9 @@ export default function TreinamentosPlataforma() {
           </div>
         </div>
 
-        <div className="space-y-8 bg-white dark:bg-[#1e293b] p-8 sm:p-12 rounded-[40px] border border-slate-200 dark:border-slate-700/80 shadow-xs transition-colors duration-300">
+        <div className="space-y-8 bg-white dark:bg-surface-card p-8 sm:p-12 rounded-[40px] border border-slate-200 dark:border-slate-700/80 shadow-xs transition-colors duration-300">
           <div className="space-y-2">
-            <h2 className="text-3xl sm:text-4xl font-black tracking-tight text-[#0b2545] dark:text-white">
+            <h2 className="text-3xl sm:text-4xl font-black tracking-tight text-brand-strong dark:text-white">
               Como utilizar o Portal
             </h2>
             <p className="text-slate-500 dark:text-slate-400 text-sm sm:text-base font-medium">
@@ -79,23 +79,23 @@ export default function TreinamentosPlataforma() {
           </div>
 
           <div className="space-y-4">
-            <div className="flex items-center gap-2 text-[#0b2545] dark:text-white font-bold text-base sm:text-lg">
+            <div className="flex items-center gap-2 text-brand-strong dark:text-white font-bold text-base sm:text-lg">
               <ListOrdered size={20} className="text-slate-400 dark:text-slate-500" />
               <h3>Orientações para o Operador</h3>
             </div>
-            <div className="p-5 bg-slate-50/50 dark:bg-[#161f30]/60 border border-slate-200/60 dark:border-slate-700/60 rounded-2xl flex gap-4 items-center">
+            <div className="p-5 bg-slate-50/50 dark:bg-surface/60 border border-slate-200/60 dark:border-slate-700/60 rounded-2xl flex gap-4 items-center">
               <div className="h-8 w-8 shrink-0 flex items-center justify-center font-bold text-sm bg-blue-50 dark:bg-blue-950/60 text-blue-600 dark:text-blue-400 rounded-full border border-blue-100 dark:border-blue-900/50">1</div>
               <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
                 Realizar os módulos na ordem em que foram disponibilizados, iniciando pelo Módulo 1.
               </p>
             </div>
-            <div className="p-5 bg-slate-50/50 dark:bg-[#161f30]/60 border border-slate-200/60 dark:border-slate-700/60 rounded-2xl flex gap-4 items-center">
+            <div className="p-5 bg-slate-50/50 dark:bg-surface/60 border border-slate-200/60 dark:border-slate-700/60 rounded-2xl flex gap-4 items-center">
               <div className="h-8 w-8 shrink-0 flex items-center justify-center font-bold text-sm bg-blue-50 dark:bg-blue-950/60 text-blue-600 dark:text-blue-400 rounded-full border border-blue-100 dark:border-blue-900/50">2</div>
               <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
                 Realizar a leitura e visualização completa de todo o material de apoio.
               </p>
             </div>
-            <div className="p-5 bg-slate-50/50 dark:bg-[#161f30]/60 border border-slate-200/60 dark:border-slate-700/60 rounded-2xl flex gap-4 items-center">
+            <div className="p-5 bg-slate-50/50 dark:bg-surface/60 border border-slate-200/60 dark:border-slate-700/60 rounded-2xl flex gap-4 items-center">
               <div className="h-8 w-8 shrink-0 flex items-center justify-center font-bold text-sm bg-blue-50 dark:bg-blue-950/60 text-blue-600 dark:text-blue-400 rounded-full border border-blue-100 dark:border-blue-900/50">3</div>
               <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
                 Após cada módulo, valide o aprendizado por meio do Quiz.
@@ -130,10 +130,10 @@ export default function TreinamentosPlataforma() {
     return (
       <div className="w-full max-w-5xl mx-auto px-4 py-6 space-y-8 animate-fade-in text-left pb-12">
          {/* Apresentação do Produto */}
-        <div className="p-8 bg-white dark:bg-[#1e293b] rounded-3xl border border-slate-200 dark:border-slate-700 space-y-6 shadow-xs">
+        <div className="p-8 bg-white dark:bg-surface-card rounded-3xl border border-slate-200 dark:border-slate-700 space-y-6 shadow-xs">
           
-          <div className="flex items-center gap-3 text-[#0b2545] dark:text-white">
-            <div className="p-2 bg-emerald-50 dark:bg-emerald-950/50 text-emerald-600 dark:text-emerald-400 rounded-xl">
+          <div className="flex items-center gap-3 text-brand-strong dark:text-white">
+            <div className="p-2 bg-brand/10 text-brand rounded-xl">
               <Globe2 size={24} />
             </div>
             <h2 className="text-2xl font-bold">{dadosQuemSomos?.titulo || chaveProd}</h2>
@@ -144,12 +144,12 @@ export default function TreinamentosPlataforma() {
         </div>
 
         {/* Rotina de Qualidade e Capacitação */}
-        <div className="p-8 bg-white dark:bg-[#1e293b] rounded-3xl border border-slate-200 dark:border-slate-700 space-y-6 shadow-xs">
+        <div className="p-8 bg-white dark:bg-surface-card rounded-3xl border border-slate-200 dark:border-slate-700 space-y-6 shadow-xs">
 
           
           
-          <div className="flex items-center gap-3 text-[#0b2545] dark:text-white">
-            <div className="p-2 bg-emerald-50 dark:bg-emerald-950/50 text-emerald-600 dark:text-emerald-400 rounded-xl">
+          <div className="flex items-center gap-3 text-brand-strong dark:text-white">
+            <div className="p-2 bg-brand/10 text-brand rounded-xl">
               <CheckCircle size={24} />
             </div>
             <h2 className="text-2xl font-bold">Rotina de Qualidade e Capacitação</h2>
@@ -162,9 +162,9 @@ export default function TreinamentosPlataforma() {
 
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-2">
             {/* Supervisão */}
-            <div className="p-5 bg-slate-50 dark:bg-[#161f30] rounded-2xl border border-slate-200/80 dark:border-slate-700/60 space-y-3">
+            <div className="p-5 bg-slate-50 dark:bg-surface rounded-2xl border border-slate-200/80 dark:border-slate-700/60 space-y-3">
               <div className="flex items-center gap-2 font-bold text-slate-900 dark:text-white">
-                <CheckCircle size={18} className="text-emerald-600" />
+                <CheckCircle size={18} className="text-brand" />
                 <h4>Supervisão Operacional</h4>
               </div>
               {dadosQuemSomos?.equipe?.supervisao?.map((item, i) => (
@@ -179,9 +179,9 @@ export default function TreinamentosPlataforma() {
             </div>
 
             {/* Instrutoria */}
-            <div className="p-5 bg-slate-50 dark:bg-[#161f30] rounded-2xl border border-slate-200/80 dark:border-slate-700/60 space-y-3">
+            <div className="p-5 bg-slate-50 dark:bg-surface rounded-2xl border border-slate-200/80 dark:border-slate-700/60 space-y-3">
               <div className="flex items-center gap-2 font-bold text-slate-900 dark:text-white">
-                <Users size={18} className="text-[#1f9443]" />
+                <Users size={18} className="text-brand" />
                 <h4>Instrutoria de Treinamento</h4>
               </div>
               {dadosQuemSomos?.equipe?.instrutor?.map((item, i) => (
@@ -196,7 +196,7 @@ export default function TreinamentosPlataforma() {
             </div>
 
             {/* Monitoria */}
-            <div className="p-5 bg-slate-50 dark:bg-[#161f30] rounded-2xl border border-slate-200/80 dark:border-slate-700/60 space-y-3">
+            <div className="p-5 bg-slate-50 dark:bg-surface rounded-2xl border border-slate-200/80 dark:border-slate-700/60 space-y-3">
               <div className="flex items-center gap-2 font-bold text-slate-900 dark:text-white">
                 <Headset size={18} className="text-blue-500" />
                 <h4>Monitoria de Qualidade</h4>
@@ -215,8 +215,8 @@ export default function TreinamentosPlataforma() {
         </div>
 
         {/* Seção A Parceria */}
-        <div className="p-8 bg-white dark:bg-[#1e293b] rounded-3xl border border-slate-200 dark:border-slate-700 space-y-4 shadow-xs">
-          <div className="flex items-center gap-3 text-[#0b2545] dark:text-white">
+        <div className="p-8 bg-white dark:bg-surface-card rounded-3xl border border-slate-200 dark:border-slate-700 space-y-4 shadow-xs">
+          <div className="flex items-center gap-3 text-brand-strong dark:text-white">
             <div className="p-2 bg-purple-50 dark:bg-purple-950/50 text-purple-600 dark:text-purple-400 rounded-xl">
               <Handshake size={24} />
             </div>
@@ -249,8 +249,8 @@ export default function TreinamentosPlataforma() {
 
     return (
       <div className="w-full max-w-5xl mx-auto px-4 py-6 space-y-8 animate-fade-in text-left pb-12">
-        <div className="p-8 bg-white dark:bg-[#1e293b] rounded-[32px] border border-slate-200 dark:border-slate-700/80 shadow-xs space-y-3">
-          <div className="flex items-center gap-2 text-[#1f9443] dark:text-[#4ade80] font-extrabold text-xs uppercase tracking-wider">
+        <div className="p-8 bg-white dark:bg-surface-card rounded-[32px] border border-slate-200 dark:border-slate-700/80 shadow-xs space-y-3">
+          <div className="flex items-center gap-2 text-brand font-extrabold text-xs uppercase tracking-wider">
             <BookOpen size={16} />
             <span>Treinamentos Operacionais</span>
           </div>
@@ -279,7 +279,7 @@ export default function TreinamentosPlataforma() {
             ))}
           </div>
         ) : (
-          <div className="p-12 text-center text-slate-500 dark:text-slate-400 bg-white dark:bg-[#1e293b] rounded-3xl border border-slate-200 dark:border-slate-700/80">
+          <div className="p-12 text-center text-slate-500 dark:text-slate-400 bg-white dark:bg-surface-card rounded-3xl border border-slate-200 dark:border-slate-700/80">
             <p className="font-bold text-lg">Nenhum módulo cadastrado nesta seção ainda.</p>
           </div>
         )}
@@ -308,8 +308,8 @@ export default function TreinamentosPlataforma() {
 
     return (
       <div className="w-full max-w-5xl mx-auto px-4 py-6 space-y-8 animate-fade-in text-left pb-12">
-        <div className="p-8 bg-white dark:bg-[#1e293b] rounded-[32px] border border-slate-200 dark:border-slate-700/80 shadow-xs space-y-3">
-          <div className="flex items-center gap-2 text-[#1f9443] dark:text-[#4ade80] font-extrabold text-xs uppercase tracking-wider">
+        <div className="p-8 bg-white dark:bg-surface-card rounded-[32px] border border-slate-200 dark:border-slate-700/80 shadow-xs space-y-3">
+          <div className="flex items-center gap-2 text-brand font-extrabold text-xs uppercase tracking-wider">
             <HelpCircle size={16} />
             <span>Perguntas Frequentes</span>
           </div>
@@ -325,7 +325,7 @@ export default function TreinamentosPlataforma() {
           {faqsPadrao.map((faq, index) => (
             <div
               key={index}
-              className="bg-white dark:bg-[#1e293b] border border-slate-200 dark:border-slate-700/80 rounded-2xl overflow-hidden transition-all"
+              className="bg-white dark:bg-surface-card border border-slate-200 dark:border-slate-700/80 rounded-2xl overflow-hidden transition-all"
             >
               <button
                 onClick={() => setFaqAberta(faqAberta === index ? null : index)}
@@ -337,7 +337,7 @@ export default function TreinamentosPlataforma() {
                 <ChevronDown
                   size={20}
                   className={`text-slate-400 transition-transform duration-200 shrink-0 ${
-                    faqAberta === index ? 'rotate-180 text-[#1f9443]' : ''
+                    faqAberta === index ? 'rotate-180 text-brand' : ''
                   }`}
                 />
               </button>
