@@ -1,23 +1,36 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { carregarEProcessarDados } from '../data/mockData';
 import { Lock, User, LogOut, Search, ShieldCheck, Filter, Eye, X, RefreshCw, AlertTriangle } from 'lucide-react';
 
-// ⚠️ IMPORTANTE — LEIA ANTES DE USAR EM PRODUÇÃO
-// Este login é validado 100% no navegador porque o projeto não possui backend.
-// Isso NÃO é segurança real: qualquer pessoa pode ler a senha no bundle JS
-// ou pular a tela via DevTools. Trate esta tela como uma "porta fechada, não trancada":
-// serve para não expor os dados por acidente, mas não protege contra alguém decidido.
-// A correção definitiva é criar uma Vercel Serverless Function que valide a senha
-// no servidor e devolva um token — o front nunca deveria conhecer a senha certa.
-const USUARIO_GESTAO = import.meta.env.VITE_GESTAO_USUARIO || 'gestao';
-const SENHA_GESTAO = import.meta.env.VITE_GESTAO_SENHA;
-const SESSAO_DURACAO_MS = 30 * 60 * 1000; // 30 minutos
+// Login validado no servidor (Vercel Serverless Function em /api/login).
+// O front nunca conhece usuário/senha corretos — só envia o que foi digitado
+// e recebe de volta um token assinado, válido por tempo limitado.
+const CHAVE_SESSAO = 'st_gestao_sessao';
+
+function lerSessaoSalva() {
+  try {
+    const bruto = sessionStorage.getItem(CHAVE_SESSAO);
+    if (!bruto) return null;
+
+    const sessao = JSON.parse(bruto);
+    if (!sessao.token || !sessao.expiraEm || Date.now() > sessao.expiraEm) {
+      sessionStorage.removeItem(CHAVE_SESSAO);
+      return null;
+    }
+    return sessao;
+  } catch {
+    sessionStorage.removeItem(CHAVE_SESSAO);
+    return null;
+  }
+}
 
 export default function Instrucoes() {
   const [autenticado, setAutenticado] = useState(false);
+  const [verificandoSessao, setVerificandoSessao] = useState(true);
   const [usuario, setUsuario] = useState('');
   const [senha, setSenha] = useState('');
   const [erro, setErro] = useState('');
+  const [entrando, setEntrando] = useState(false);
 
   const [operadores, setOperadores] = useState([]);
   const [carregando, setCarregando] = useState(false);
@@ -25,7 +38,14 @@ export default function Instrucoes() {
   const [busca, setBusca] = useState('');
   const [detalhesOperador, setDetalhesOperador] = useState(null);
 
-  const carregarDados = async (produtoSelecionado = produto) => {
+  // Ao montar, tenta restaurar uma sessão válida salva nesta aba (evita pedir login de novo a cada refresh).
+  useEffect(() => {
+    const sessao = lerSessaoSalva();
+    setAutenticado(!!sessao);
+    setVerificandoSessao(false);
+  }, []);
+
+  const carregarDados = useCallback(async (produtoSelecionado = produto) => {
     setCarregando(true);
     try {
       const dados = await carregarEProcessarDados(produtoSelecionado);
@@ -35,48 +55,87 @@ export default function Instrucoes() {
     } finally {
       setCarregando(false);
     }
-  };
+  }, [produto]);
 
   useEffect(() => {
     if (autenticado) {
       carregarDados(produto);
     }
-  }, [autenticado, produto]);
+  }, [autenticado, produto, carregarDados]);
 
-  // Expira a sessão automaticamente após SESSAO_DURACAO_MS
+  // Expira a sessão automaticamente quando o token salvo vencer.
   useEffect(() => {
     if (!autenticado) return;
-    const timer = setTimeout(() => {
+    const sessao = lerSessaoSalva();
+    if (!sessao) {
       setAutenticado(false);
-      setErro('Sessão expirada. Faça login novamente.');
-    }, SESSAO_DURACAO_MS);
-    return () => clearTimeout(timer);
-  }, [autenticado]);
-
-  const handleLogin = (e) => {
-    e.preventDefault();
-
-    if (!SENHA_GESTAO) {
-      setErro('Login não configurado. Defina VITE_GESTAO_SENHA no ambiente.');
       return;
     }
 
-    if (usuario === USUARIO_GESTAO && senha === SENHA_GESTAO) {
+    const restante = sessao.expiraEm - Date.now();
+    const timer = setTimeout(() => {
+      sessionStorage.removeItem(CHAVE_SESSAO);
+      setAutenticado(false);
+      setErro('Sessão expirada. Faça login novamente.');
+    }, Math.max(restante, 0));
+
+    return () => clearTimeout(timer);
+  }, [autenticado]);
+
+  const handleLogin = async (e) => {
+    e.preventDefault();
+    setErro('');
+    setEntrando(true);
+
+    try {
+      const resposta = await fetch('/api/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ usuario, senha }),
+      });
+
+      const dados = await resposta.json();
+
+      if (!resposta.ok || !dados.sucesso) {
+        setErro(dados.mensagem || 'Usuário ou senha inválidos.');
+        return;
+      }
+
+      sessionStorage.setItem(
+        CHAVE_SESSAO,
+        JSON.stringify({
+          token: dados.token,
+          expiraEm: Date.now() + dados.expiraEm * 1000,
+        })
+      );
+
       setAutenticado(true);
-      setErro('');
-    } else {
-      setErro('Usuário ou senha inválidos.');
+      setSenha('');
+    } catch (err) {
+      console.error(err);
+      setErro('Falha de conexão ao tentar entrar. Tente novamente.');
+    } finally {
+      setEntrando(false);
     }
+  };
+
+  const handleLogout = () => {
+    sessionStorage.removeItem(CHAVE_SESSAO);
+    setAutenticado(false);
   };
 
   const operadoresFiltrados = operadores.filter((op) =>
     op.nome.toLowerCase().includes(busca.toLowerCase())
   );
 
+  if (verificandoSessao) {
+    return <div className="max-w-md mx-auto py-12 text-center text-sm text-slate-400">Verificando sessão...</div>;
+  }
+
   if (!autenticado) {
     return (
       <div className="max-w-md mx-auto py-12 px-4 text-left">
-        <form onSubmit={handleLogin} className="bg-white dark:bg-[#1e293b] p-8 rounded-3xl border border-slate-200 dark:border-slate-700 shadow-xl space-y-4">
+        <form onSubmit={handleLogin} className="bg-white dark:bg-surface-card p-8 rounded-3xl border border-slate-200 dark:border-slate-700 shadow-xl space-y-4">
           <div className="text-center space-y-2">
             <ShieldCheck size={40} className="mx-auto text-brand" />
             <h1 className="text-xl font-bold text-slate-900 dark:text-white">Acesso à Gestão</h1>
@@ -99,7 +158,9 @@ export default function Instrucoes() {
             <input type="password" value={senha} onChange={(e) => setSenha(e.target.value)} className="w-full p-2.5 rounded-xl border dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-sm" required />
           </div>
 
-          <button type="submit" className="w-full py-3 bg-brand hover:opacity-90 text-white font-bold rounded-xl text-sm cursor-pointer">Entrar</button>
+          <button type="submit" disabled={entrando} className="w-full py-3 bg-brand hover:opacity-90 disabled:opacity-50 text-white font-bold rounded-xl text-sm cursor-pointer">
+            {entrando ? 'Entrando...' : 'Entrar'}
+          </button>
         </form>
       </div>
     );
@@ -107,7 +168,7 @@ export default function Instrucoes() {
 
   return (
     <div className="max-w-6xl mx-auto p-4 space-y-6 text-left pb-12">
-      <div className="flex justify-between items-center bg-white dark:bg-[#1e293b] p-6 rounded-3xl border border-slate-200 dark:border-slate-700">
+      <div className="flex justify-between items-center bg-white dark:bg-surface-card p-6 rounded-3xl border border-slate-200 dark:border-slate-700">
         <div>
           <h1 className="text-2xl font-black text-slate-900 dark:text-white">Gestão de Desempenho</h1>
           <p className="text-xs text-slate-500">Acompanhamento Independente de Quiz e Monitoria</p>
@@ -117,13 +178,13 @@ export default function Instrucoes() {
             <RefreshCw size={14} className={carregando ? 'animate-spin' : ''} />
             {carregando ? 'Sincronizando...' : 'Sincronizar'}
           </button>
-          <button onClick={() => setAutenticado(false)} className="px-4 py-2 bg-slate-100 dark:bg-slate-800 text-xs font-bold rounded-xl flex items-center gap-2 cursor-pointer">
+          <button onClick={handleLogout} className="px-4 py-2 bg-slate-100 dark:bg-slate-800 text-xs font-bold rounded-xl flex items-center gap-2 cursor-pointer">
             <LogOut size={14} /> Sair
           </button>
         </div>
       </div>
 
-      <div className="flex flex-wrap gap-4 justify-between items-center bg-white dark:bg-[#1e293b] p-4 rounded-2xl border border-slate-200 dark:border-slate-700">
+      <div className="flex flex-wrap gap-4 justify-between items-center bg-white dark:bg-surface-card p-4 rounded-2xl border border-slate-200 dark:border-slate-700">
         <div className="flex items-center gap-2">
           <Filter size={16} className="text-brand" />
           {['TODOS', 'TELEBRAS', 'DPE', 'DETRAN'].map((p) => (
@@ -139,7 +200,7 @@ export default function Instrucoes() {
         </div>
       </div>
 
-      <div className="bg-white dark:bg-[#1e293b] rounded-3xl border border-slate-200 dark:border-slate-700 overflow-hidden shadow-xs">
+      <div className="bg-white dark:bg-surface-card rounded-3xl border border-slate-200 dark:border-slate-700 overflow-hidden shadow-xs">
         <table className="w-full text-left text-xs">
           <thead className="bg-slate-50 dark:bg-slate-800 text-slate-500 font-bold uppercase">
             <tr>
@@ -212,7 +273,7 @@ export default function Instrucoes() {
 
       {detalhesOperador && (
         <div className="fixed inset-0 bg-black/50 backdrop-blur-xs flex items-center justify-center p-4 z-50">
-          <div className="bg-white dark:bg-[#1e293b] p-6 rounded-3xl max-w-lg w-full space-y-4 shadow-2xl">
+          <div className="bg-white dark:bg-surface-card p-6 rounded-3xl max-w-lg w-full space-y-4 shadow-2xl">
             <div className="flex justify-between items-center border-b dark:border-slate-700 pb-3">
               <div>
                 <h2 className="font-bold text-lg text-slate-900 dark:text-white">{detalhesOperador.nome}</h2>
