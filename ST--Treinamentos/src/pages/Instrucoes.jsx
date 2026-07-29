@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { carregarEProcessarDados } from '../data/mockData';
 import { Lock, User, LogOut, Search, ShieldCheck, Filter, Eye, X, RefreshCw, AlertTriangle } from 'lucide-react';
 
 // Login validado no servidor (Vercel Serverless Function em /api/login).
@@ -46,10 +45,34 @@ export default function Instrucoes() {
   }, []);
 
   const carregarDados = useCallback(async (produtoSelecionado = produto) => {
+    const sessao = lerSessaoSalva();
+    if (!sessao) {
+      setAutenticado(false);
+      return;
+    }
+
     setCarregando(true);
     try {
-      const dados = await carregarEProcessarDados(produtoSelecionado);
-      setOperadores(dados);
+      const resposta = await fetch(`/api/dados?produto=${encodeURIComponent(produtoSelecionado)}`, {
+        headers: { Authorization: `Bearer ${sessao.token}` },
+      });
+
+      if (resposta.status === 401) {
+        sessionStorage.removeItem(CHAVE_SESSAO);
+        setAutenticado(false);
+        setErro('Sessão expirada. Faça login novamente.');
+        return;
+      }
+
+      const dados = await resposta.json();
+
+      if (!resposta.ok || !dados.sucesso) {
+        console.error('Erro ao carregar dados:', dados.mensagem);
+        setOperadores([]);
+        return;
+      }
+
+      setOperadores(dados.operadores);
     } catch (err) {
       console.error('Erro ao carregar dados:', err);
     } finally {
