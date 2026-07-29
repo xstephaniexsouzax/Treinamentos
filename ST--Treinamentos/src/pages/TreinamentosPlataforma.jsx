@@ -231,7 +231,7 @@ if (tipo === 'quem-somos') {
                 {tipo} - {produto.toUpperCase()}
               </h1>
               <p className="text-slate-600 dark:text-slate-300 text-sm sm:text-base">
-                Selecione um dos módulos abaixo para acessar os slides, vídeos e avaliação prática.
+                Selecione um dos módulos abaixo para acessar o conteúdo existente.
               </p>
             </div>
             <Link
