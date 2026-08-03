@@ -128,7 +128,7 @@ export default function SuporteSistema() {
         🛠️ Suporte Técnico
       </h2>
       <p className="text-sm font-normal text-slate-600 dark:text-slate-300 mt-1 mb-6">
-        Relate falhas, dúvidas ou qualquer solicitação técnica sobre a plataforma.
+        Relate falhas ou qualquer solicitação técnica sobre a plataforma.
       </p>
 
       <form onSubmit={handleSubmit} className="flex flex-col gap-5">
@@ -218,7 +218,7 @@ export default function SuporteSistema() {
             Anexar Print (Obrigatório): <span className="text-red-500 font-bold">*</span>
           </label>
           <p className="text-xs font-normal text-slate-500 dark:text-slate-400 mb-2">
-            Pode ser um print do erro, de uma tela com dúvida, ou qualquer imagem relevante para o seu chamado.
+            Pode ser um print do erro ou qualquer imagem relevante para o seu chamado.
           </p>
           <input
             type="file"
