@@ -30,6 +30,11 @@ export default function ContatoInstrutor() {
       return;
     }
 
+    if (/\d/.test(formData.nome) || /\d/.test(formData.responsavel)) {
+      setStatus('⚠️ O nome completo e o nome do responsável não podem conter números.');
+      return;
+    }
+
     if (!dataEhValida(formData.data)) {
       setStatus('⚠️ Digite uma data válida no formato DD/MM/AAAA.');
       return;

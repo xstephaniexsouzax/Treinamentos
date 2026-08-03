@@ -30,7 +30,12 @@ export default function SuporteSistema() {
     e.preventDefault();
 
     if (!formData.nome || !formData.produto || !formData.responsavel || !formData.data || !formData.descricao || !formData.printErro) {
-      setStatus('⚠️ Por favor, preencha todos os campos e anexe o print do erro.');
+      setStatus('⚠️ Por favor, preencha todos os campos e anexe o print.');
+      return;
+    }
+
+    if (/\d/.test(formData.nome) || /\d/.test(formData.responsavel)) {
+      setStatus('⚠️ O nome completo e o nome do responsável não podem conter números.');
       return;
     }
 
@@ -78,15 +83,15 @@ export default function SuporteSistema() {
 
       const web3Data = new FormData();
       web3Data.append('access_key', selectedKey);
-      web3Data.append('subject', `[SUPORTE SISTEMA] - ${formData.produto} - ${formData.nome}`);
+      web3Data.append('subject', `[SUPORTE TÉCNICO] - ${formData.produto} - ${formData.nome}`);
       web3Data.append('from_name', formData.nome);
 
       web3Data.append('Nome Operador', formData.nome);
       web3Data.append('Produto / Operação', formData.produto);
       web3Data.append('Responsável / Supervisor', formData.responsavel);
       web3Data.append('Data da Ocorrência', formData.data);
-      web3Data.append('Descrição do Erro', formData.descricao);
-      web3Data.append('Print do Erro (Link)', imageUrl);
+      web3Data.append('Descrição da Solicitação', formData.descricao);
+      web3Data.append('Print (Link)', imageUrl);
 
       const response = await fetch('https://api.web3forms.com/submit', {
         method: 'POST',
@@ -120,10 +125,10 @@ export default function SuporteSistema() {
   return (
     <div className="max-w-2xl mx-auto p-6 bg-white dark:bg-[#1e293b] rounded-2xl shadow-sm border border-slate-200 dark:border-slate-700/80 antialiased">
       <h2 className="text-2xl font-bold tracking-normal text-slate-800 dark:text-slate-100 flex items-center gap-2">
-        🛠️ Suporte Técnico (Erros no Sistema)
+        🛠️ Suporte Técnico
       </h2>
       <p className="text-sm font-normal text-slate-600 dark:text-slate-300 mt-1 mb-6">
-        Relate falhas, travamentos ou inconsistências encontradas na plataforma.
+        Relate falhas, dúvidas ou qualquer solicitação técnica sobre a plataforma.
       </p>
 
       <form onSubmit={handleSubmit} className="flex flex-col gap-5">
@@ -195,14 +200,14 @@ export default function SuporteSistema() {
 
         <div>
           <label className="block text-sm font-semibold text-slate-700 dark:text-slate-200 mb-1.5">
-            Descrição do Erro: <span className="text-red-500 font-bold">*</span>
+            Descrição da Solicitação: <span className="text-red-500 font-bold">*</span>
           </label>
           <textarea
             name="descricao"
             rows="4"
             value={formData.descricao}
             onChange={handleChange}
-            placeholder="Descreva em detalhes o erro ocorrido..."
+            placeholder="Descreva em detalhes o problema, dúvida ou solicitação..."
             required
             className="w-full p-3 rounded-xl border border-slate-300 dark:border-slate-600/80 bg-slate-50 dark:bg-[#0f172a] text-slate-900 dark:text-slate-100 placeholder:text-slate-400 dark:placeholder:text-slate-400 focus:ring-2 focus:ring-brand focus:border-transparent outline-none transition-all text-sm"
           />
@@ -210,8 +215,11 @@ export default function SuporteSistema() {
 
         <div>
           <label className="block text-sm font-semibold text-slate-700 dark:text-slate-200 mb-1.5">
-            Anexar Print da Tela (Obrigatório): <span className="text-red-500 font-bold">*</span>
+            Anexar Print (Obrigatório): <span className="text-red-500 font-bold">*</span>
           </label>
+          <p className="text-xs font-normal text-slate-500 dark:text-slate-400 mb-2">
+            Pode ser um print do erro, de uma tela com dúvida, ou qualquer imagem relevante para o seu chamado.
+          </p>
           <input
             type="file"
             name="printErro"
