@@ -20,9 +20,7 @@ export const PRODUTOS_CONFIG = {
       { titulo: 'GESAC/EACE', url: 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRZTr-XgrhJsWNx1ZyV3ANbYlnxPHmOO8bHBWsDMdfAvprDHZp4epE-Tx5N3ciGsG2d2d1lz4dF8yC9/pub?gid=1776811410&single=true&output=csv' },
     ],
     monitorias: [
-      'https://docs.google.com/spreadsheets/d/e/2PACX-1vTEPg5oPR9C8_vdW6C0K39gpUcD-1q8SGLy5gBRAISBN0iF02vTCEENDR7MgLC2UajbnSu4XkLXovqT/pub?output=csv',
-      'https://docs.google.com/spreadsheets/d/e/2PACX-1vTEPg5oPR9C8_vdW6C0K39gpUcD-1q8SGLy5gBRAISBN0iF02vTCEENDR7MgLC2UajbnSu4XkLXovqT/pub?gid=1528312139&single=true&output=csv',
-    ],
+      'https://docs.google.com/spreadsheets/d/e/2PACX-1vTEPg5oPR9C8_vdW6C0K39gpUcD-1q8SGLy5gBRAISBN0iF02vTCEENDR7MgLC2UajbnSu4XkLXovqT/pub?output=csv'
   },
 
   DPE: {
