@@ -21,6 +21,7 @@ export const PRODUTOS_CONFIG = {
     ],
     monitorias: [
       'https://docs.google.com/spreadsheets/d/e/2PACX-1vTEPg5oPR9C8_vdW6C0K39gpUcD-1q8SGLy5gBRAISBN0iF02vTCEENDR7MgLC2UajbnSu4XkLXovqT/pub?output=csv',
+      'https://docs.google.com/spreadsheets/d/e/2PACX-1vTEPg5oPR9C8_vdW6C0K39gpUcD-1q8SGLy5gBRAISBN0iF02vTCEENDR7MgLC2UajbnSu4XkLXovqT/pub?gid=1528312139&single=true&output=csv',
     ],
   },
 
