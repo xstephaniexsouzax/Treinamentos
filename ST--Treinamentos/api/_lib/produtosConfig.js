@@ -39,7 +39,12 @@ export const PRODUTOS_CONFIG = {
       { titulo: 'Quiz DETRAN', url: 'https://docs.google.com/spreadsheets/d/e/.../pub?gid=XXXXX&single=true&output=csv' },
     ],
     monitorias: [
-      'https://docs.google.com/spreadsheets/d/e/.../pub?gid=YYYYY&single=true&output=csv',
+      // geral
+      'https://docs.google.com/spreadsheets/d/e/2PACX-1vTEPg5oPR9C8_vdW6C0K39gpUcD-1q8SGLy5gBRAISBN0iF02vTCEENDR7MgLC2UajbnSu4XkLXovqT/pub?gid=1528312139&single=true&output=csv',
+    ],
+    // Agosto
+    monitoriasAgosto: [
+      'https://docs.google.com/spreadsheets/d/e/2PACX-1vTEPg5oPR9C8_vdW6C0K39gpUcD-1q8SGLy5gBRAISBN0iF02vTCEENDR7MgLC2UajbnSu4XkLXovqT/pub?gid=764105353&single=true&output=csv'
     ],
   },
 };
