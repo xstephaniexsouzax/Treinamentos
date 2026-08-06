@@ -1,9 +1,13 @@
 import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { ChevronDown, ChevronUp, BookOpen, RotateCcw, HelpCircle, Folder, Users, Menu, X } from 'lucide-react';
+import { useAuth } from '../../context/AuthContext';
+
+const TODOS_OS_PRODUTOS = ['TELEBRAS', 'DPE', 'DETRAN'];
 
 export default function Sidebar() {
   const location = useLocation();
+  const { papel, produtos } = useAuth();
   const [abertoMobile, setAbertoMobile] = useState(false);
   const [produtosAbertos, setProdutosAbertos] = useState({
     TELEBRAS: true, // Começa aberto por padrão
@@ -15,7 +19,10 @@ export default function Sidebar() {
     setProdutosAbertos(prev => ({ ...prev, [prod]: !prev[prod] }));
   };
 
-  const listaProdutos = ['TELEBRAS', 'DPE', 'DETRAN'];
+  // Gestão vê os 3 produtos; operador só vê o(s) produto(s) atribuído(s) a ele.
+  const listaProdutos = papel === 'gestao'
+    ? TODOS_OS_PRODUTOS
+    : TODOS_OS_PRODUTOS.filter((p) => produtos.includes(p));
 
   const subMenuAtivo = (prod, tipo) =>
     location.pathname === `/treinamentos/${prod}/${tipo}`

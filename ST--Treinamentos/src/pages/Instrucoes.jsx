@@ -1,66 +1,30 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { Lock, User, LogOut, Search, ShieldCheck, Filter, Eye, X, RefreshCw, AlertTriangle } from 'lucide-react';
-
-// Login validado no servidor (Vercel Serverless Function em /api/login).
-// O front nunca conhece usuário/senha corretos — só envia o que foi digitado
-// e recebe de volta um token assinado, válido por tempo limitado.
-const CHAVE_SESSAO = 'st_gestao_sessao';
-
-function lerSessaoSalva() {
-  try {
-    const bruto = sessionStorage.getItem(CHAVE_SESSAO);
-    if (!bruto) return null;
-
-    const sessao = JSON.parse(bruto);
-    if (!sessao.token || !sessao.expiraEm || Date.now() > sessao.expiraEm) {
-      sessionStorage.removeItem(CHAVE_SESSAO);
-      return null;
-    }
-    return sessao;
-  } catch {
-    sessionStorage.removeItem(CHAVE_SESSAO);
-    return null;
-  }
-}
+import { Search, Filter, Eye, X, RefreshCw } from 'lucide-react';
+import { useAuth } from '../context/AuthContext';
 
 export default function Instrucoes() {
-  const [autenticado, setAutenticado] = useState(false);
-  const [verificandoSessao, setVerificandoSessao] = useState(true);
-  const [usuario, setUsuario] = useState('');
-  const [senha, setSenha] = useState('');
-  const [erro, setErro] = useState('');
-  const [entrando, setEntrando] = useState(false);
+  const { token, expirarSessao } = useAuth();
 
   const [operadores, setOperadores] = useState([]);
   const [carregando, setCarregando] = useState(false);
+  const [erro, setErro] = useState('');
   const [produto, setProduto] = useState('TODOS');
   const [busca, setBusca] = useState('');
   const [detalhesOperador, setDetalhesOperador] = useState(null);
 
-  // Ao montar, tenta restaurar uma sessão válida salva nesta aba (evita pedir login de novo a cada refresh).
-  useEffect(() => {
-    const sessao = lerSessaoSalva();
-    setAutenticado(!!sessao);
-    setVerificandoSessao(false);
-  }, []);
-
   const carregarDados = useCallback(async (produtoSelecionado = produto) => {
-    const sessao = lerSessaoSalva();
-    if (!sessao) {
-      setAutenticado(false);
-      return;
-    }
+    if (!token) return;
 
     setCarregando(true);
+    setErro('');
     try {
       const resposta = await fetch(`/api/dados?produto=${encodeURIComponent(produtoSelecionado)}`, {
-        headers: { Authorization: `Bearer ${sessao.token}` },
+        headers: { Authorization: `Bearer ${token}` },
       });
 
       if (resposta.status === 401) {
-        sessionStorage.removeItem(CHAVE_SESSAO);
-        setAutenticado(false);
         setErro('Sessão expirada. Faça login novamente.');
+        expirarSessao();
         return;
       }
 
@@ -68,6 +32,7 @@ export default function Instrucoes() {
 
       if (!resposta.ok || !dados.sucesso) {
         console.error('Erro ao carregar dados:', dados.mensagem);
+        setErro(dados.mensagem || 'Erro ao buscar os dados.');
         setOperadores([]);
         return;
       }
@@ -75,119 +40,20 @@ export default function Instrucoes() {
       setOperadores(dados.operadores);
     } catch (err) {
       console.error('Erro ao carregar dados:', err);
+      setErro('Falha de conexão ao buscar os dados.');
     } finally {
       setCarregando(false);
     }
+  }, [produto, token, expirarSessao]);
+
+  useEffect(() => {
+    carregarDados(produto);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [produto]);
-
-  useEffect(() => {
-    if (autenticado) {
-      carregarDados(produto);
-    }
-  }, [autenticado, produto, carregarDados]);
-
-  // Expira a sessão automaticamente quando o token salvo vencer.
-  useEffect(() => {
-    if (!autenticado) return;
-    const sessao = lerSessaoSalva();
-    if (!sessao) {
-      setAutenticado(false);
-      return;
-    }
-
-    const restante = sessao.expiraEm - Date.now();
-    const timer = setTimeout(() => {
-      sessionStorage.removeItem(CHAVE_SESSAO);
-      setAutenticado(false);
-      setErro('Sessão expirada. Faça login novamente.');
-    }, Math.max(restante, 0));
-
-    return () => clearTimeout(timer);
-  }, [autenticado]);
-
-  const handleLogin = async (e) => {
-    e.preventDefault();
-    setErro('');
-    setEntrando(true);
-
-    try {
-      const resposta = await fetch('/api/login', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ usuario, senha }),
-      });
-
-      const dados = await resposta.json();
-
-      if (!resposta.ok || !dados.sucesso) {
-        setErro(dados.mensagem || 'Usuário ou senha inválidos.');
-        return;
-      }
-
-      sessionStorage.setItem(
-        CHAVE_SESSAO,
-        JSON.stringify({
-          token: dados.token,
-          expiraEm: Date.now() + dados.expiraEm * 1000,
-        })
-      );
-
-      setAutenticado(true);
-      setSenha('');
-    } catch (err) {
-      console.error(err);
-      setErro('Falha de conexão ao tentar entrar. Tente novamente.');
-    } finally {
-      setEntrando(false);
-    }
-  };
-
-  const handleLogout = () => {
-    sessionStorage.removeItem(CHAVE_SESSAO);
-    setAutenticado(false);
-  };
 
   const operadoresFiltrados = operadores.filter((op) =>
     op.nome.toLowerCase().includes(busca.toLowerCase())
   );
-
-  if (verificandoSessao) {
-    return <div className="max-w-md mx-auto py-12 text-center text-sm text-slate-400">Verificando sessão...</div>;
-  }
-
-  if (!autenticado) {
-    return (
-      <div className="max-w-md mx-auto py-12 px-4 text-left">
-        <form onSubmit={handleLogin} className="bg-white dark:bg-surface-card p-8 rounded-3xl border border-slate-200 dark:border-slate-700 shadow-xl space-y-4">
-          <div className="text-center space-y-2">
-            <ShieldCheck size={40} className="mx-auto text-brand" />
-            <h1 className="text-xl font-bold text-slate-900 dark:text-white">Acesso à Gestão</h1>
-          </div>
-
-          <div className="flex items-start gap-2 p-3 bg-amber-50 dark:bg-amber-950/30 border border-amber-200 dark:border-amber-900/40 rounded-xl text-xs text-amber-800 dark:text-amber-300">
-            <AlertTriangle size={16} className="shrink-0 mt-0.5" />
-            <span>Acesso restrito à equipe de gestão. Não compartilhe suas credenciais.</span>
-          </div>
-
-          {erro && <p className="text-xs text-red-500 font-bold text-center">{erro}</p>}
-
-          <div>
-            <label className="text-xs font-bold text-slate-500 flex items-center gap-1"><User size={12} /> USUÁRIO</label>
-            <input type="text" value={usuario} onChange={(e) => setUsuario(e.target.value)} className="w-full p-2.5 rounded-xl border dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-sm" required />
-          </div>
-
-          <div>
-            <label className="text-xs font-bold text-slate-500 flex items-center gap-1"><Lock size={12} /> SENHA</label>
-            <input type="password" value={senha} onChange={(e) => setSenha(e.target.value)} className="w-full p-2.5 rounded-xl border dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-sm" required />
-          </div>
-
-          <button type="submit" disabled={entrando} className="w-full py-3 bg-brand hover:opacity-90 disabled:opacity-50 text-white font-bold rounded-xl text-sm cursor-pointer">
-            {entrando ? 'Entrando...' : 'Entrar'}
-          </button>
-        </form>
-      </div>
-    );
-  }
 
   return (
     <div className="max-w-6xl mx-auto p-4 space-y-6 text-left pb-12">
@@ -201,11 +67,14 @@ export default function Instrucoes() {
             <RefreshCw size={14} className={carregando ? 'animate-spin' : ''} />
             {carregando ? 'Sincronizando...' : 'Sincronizar'}
           </button>
-          <button onClick={handleLogout} className="px-4 py-2 bg-slate-100 dark:bg-slate-800 text-xs font-bold rounded-xl flex items-center gap-2 cursor-pointer">
-            <LogOut size={14} /> Sair
-          </button>
         </div>
       </div>
+
+      {erro && (
+        <div className="p-3 rounded-xl text-center font-semibold text-sm bg-red-50 dark:bg-red-950/30 text-red-600 dark:text-red-400 border border-red-200 dark:border-red-900/40">
+          {erro}
+        </div>
+      )}
 
       <div className="flex flex-wrap gap-4 justify-between items-center bg-white dark:bg-surface-card p-4 rounded-2xl border border-slate-200 dark:border-slate-700">
         <div className="flex items-center gap-2">

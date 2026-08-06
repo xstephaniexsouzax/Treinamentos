@@ -18,6 +18,12 @@ export default async function handler(req, res) {
     return res.status(401).json({ sucesso: false, mensagem: 'Sessão inválida ou expirada. Faça login novamente.' });
   }
 
+  // Só quem tem papel de gestão pode ver os resultados de todo mundo — mesmo que
+  // um operador tente chamar esse endpoint direto, sem passar pela tela.
+  if (resultado.payload.papel !== 'gestao') {
+    return res.status(403).json({ sucesso: false, mensagem: 'Acesso restrito à equipe de gestão.' });
+  }
+
   const produto = (req.query.produto || 'TODOS').toUpperCase();
   if (!PRODUTOS_VALIDOS.includes(produto)) {
     return res.status(400).json({ sucesso: false, mensagem: 'Produto inválido.' });

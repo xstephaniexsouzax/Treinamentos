@@ -13,5 +13,10 @@ export default async function handler(req, res) {
     return res.status(401).json({ sucesso: false, mensagem: resultado.motivo });
   }
 
-  return res.status(200).json({ sucesso: true, usuario: resultado.payload.usuario });
+  return res.status(200).json({
+    sucesso: true,
+    usuario: resultado.payload.usuario,
+    papel: resultado.payload.papel,
+    produtos: resultado.payload.produtos,
+  });
 }

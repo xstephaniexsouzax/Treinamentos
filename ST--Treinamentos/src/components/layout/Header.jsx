@@ -1,20 +1,23 @@
 import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { MessageSquare, Sun, Moon, GraduationCap, Menu, X } from 'lucide-react';
+import { MessageSquare, Sun, Moon, GraduationCap, Menu, X, LogOut } from 'lucide-react';
 import { useTheme } from '../../context/ThemeContext';
+import { useAuth } from '../../context/AuthContext';
 import LogoEmpresa from '../../assets/logo.png';
-
-const LINKS_NAV = [
-  { to: '/treinamentos', label: 'Início' },
-  { to: '/', label: 'Quem Somos' },
-  { to: '/instrucoes', label: 'Gestão' },
-  { to: '/suporte', label: 'Suporte' },
-];
 
 export default function Header() {
   const { isDark, toggleTheme } = useTheme();
+  const { usuario, papel, logout } = useAuth();
   const location = useLocation();
   const [menuAberto, setMenuAberto] = useState(false);
+
+  const LINKS_NAV = [
+    { to: '/treinamentos', label: 'Início' },
+    { to: '/', label: 'Quem Somos' },
+    // "Gestão" só aparece pra quem tem papel de gestão — operador nem vê o link.
+    ...(papel === 'gestao' ? [{ to: '/instrucoes', label: 'Gestão' }] : []),
+    { to: '/suporte', label: 'Suporte' },
+  ];
 
   // Função de estilo para indicar a página ativa
   const isActivePath = (path) => {
@@ -63,8 +66,23 @@ export default function Header() {
           ))}
         </nav>
 
-        {/* DIREITA: Grupo de Botões (Tema + Ação Rápida + Hambúrguer) */}
+        {/* DIREITA: Grupo de Botões (Usuário + Tema + Ação Rápida + Hambúrguer) */}
         <div className="flex items-center gap-3 sm:gap-4 shrink-0">
+          {/* Usuário logado + Sair (desktop) */}
+          <div className="hidden lg:flex items-center gap-2 pr-2 border-r border-slate-200 dark:border-slate-700">
+            <span className="text-xs font-bold text-slate-500 dark:text-slate-400 truncate max-w-[120px]" title={usuario || ''}>
+              {usuario}
+            </span>
+            <button
+              onClick={logout}
+              aria-label="Sair"
+              title="Sair"
+              className="p-2 rounded-xl border border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors cursor-pointer flex items-center justify-center bg-transparent text-slate-500"
+            >
+              <LogOut size={16} />
+            </button>
+          </div>
+
           {/* Botão de alternância de Tema */}
           <button
             onClick={toggleTheme}
@@ -116,6 +134,15 @@ export default function Header() {
               {link.label}
             </Link>
           ))}
+          <div className="flex items-center justify-between px-3 py-2.5 mt-2 border-t border-slate-100 dark:border-slate-800 pt-3">
+            <span className="text-xs font-bold text-slate-500 dark:text-slate-400 truncate">{usuario}</span>
+            <button
+              onClick={logout}
+              className="flex items-center gap-1.5 text-xs font-bold text-red-500 cursor-pointer"
+            >
+              <LogOut size={14} /> Sair
+            </button>
+          </div>
         </nav>
       )}
     </header>
