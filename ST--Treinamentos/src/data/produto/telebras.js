@@ -20,7 +20,7 @@ export const telebrasConfig = {
 
         {
             titulo: "Consulta: protocolo",
-            url: "https://docs.google.com/spreadsheets/d/e/2PACX-1vS1Ix5zSbnmXAeZqevPGhK2aAs06ApPJlDFhesfIXy6sG1pi5lWQ5eVfVfVm6jJQGONILjTNUdOFTUj/pub?gid=62598394&single=true&output=csv"
+            url: "https://docs.google.com/spreadsheets/d/e/2PACX-1vS1Ix5zSbnmXAeZqevPGhK2aAs06ApPJlDFhesfIXy6sG1pi5lWQ5eVfVfVm6jJQGONILjTNUdOFTUj/pub?output=csv"
         },
         {
             titulo: "GESAC/EACE",
