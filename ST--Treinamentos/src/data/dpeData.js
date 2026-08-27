@@ -8,7 +8,7 @@ export const dpeData = [
   {
     id: 8,
     produto: "DPE",
-    tipo: "capacitacao",
+    tipo: "reciclagem",
     titulo: "Família DPE - Reciclagem",
     descricao: "",
     textoIntroducaoQuiz: "",
