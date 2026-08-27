@@ -86,7 +86,7 @@ export default function TreinamentoDetalhe() {
       <div className="space-y-6">
         <div className="flex flex-col gap-2">
           <Link
-            to="/treinamentos"
+            to={`/treinamentos/${treinamento.produto}/${treinamento.tipo}`}
             className="text-blue-600 dark:text-blue-400 flex items-center gap-2 font-medium hover:underline w-fit"
           >
             <ArrowLeft size={18} /> Voltar para os Treinamentos
