@@ -9,7 +9,7 @@ export const dpeData = [
     id: 8,
     produto: "DPE",
     tipo: "reciclagem",
-    titulo: "Família DPE - Reciclagem",
+    titulo: "Quiz - Família DPE - Reciclagem",
     descricao: "",
     textoIntroducaoQuiz: "",
     tituloSecaoQuiz: "Avaliação Prática - Família",
@@ -20,6 +20,27 @@ export const dpeData = [
         idModulo: 8,
         tituloModulo: "Família DPE - Reciclagem",
         quizUrl: "https://docs.google.com/forms/d/e/1FAIpQLSd7eTIAzlDGtJ_gYgvPIrg5MBB5V9gxHXRH2qHxR7gRb30i4w/viewform?usp=dialog"
+      }
+    ]
+  },
+  {
+    id: 9,
+    produto: "DPE",
+    tipo: "capacitação",
+    titulo: "Execução de sentença - alimentos",
+    descricao: "Este módulo é dedicado aos procedimentos relacionados à execução de alimentos. ",
+    tituloSecaoSlides: "Conceito (Slide)",
+    textoIntroducaoQuiz: "ATENÇÃO OPERADOR: Este é o quiz específico sobre os INFORMATIVOS (bloco de notas).",
+    tituloSecaoQuiz: "",
+    categoria: "",
+    imagemCapa: "https://images.unsplash.com/photo-1434030216411-0b793f4b4173?auto=format&fit=crop&w=500&q=80",
+    modulos: [
+      {
+        idModulo: 1,
+        tituloModulo: "Execução de alimentos.",
+        pdfUrl: "https://drive.google.com/file/d/1fRdeZpFQGVuJt-vx_GSqKHq9PoPQpIO0/view?usp=sharing",
+        videoUrl: "",
+        quizUrl: ""
       }
     ]
   },
