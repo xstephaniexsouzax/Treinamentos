@@ -29,7 +29,7 @@ export const dpeData = [
     tipo: "capacitacao",
     titulo: "Execução de sentença - alimentos",
     descricao: "Este módulo é dedicado aos procedimentos relacionados à execução de alimentos. ",
-    tituloSecaoSlides: "Conceito (Slide)",
+    tituloSecaoSlides: "Conceito (PDF)",
     textoIntroducaoQuiz: "ATENÇÃO OPERADOR: Este é o quiz específico sobre os INFORMATIVOS (bloco de notas).",
     tituloSecaoQuiz: "",
     categoria: "",
@@ -38,7 +38,7 @@ export const dpeData = [
       {
         idModulo: 1,
         tituloModulo: "Execução de alimentos.",
-        pdfUrl: "https://drive.google.com/file/d/1fRdeZpFQGVuJt-vx_GSqKHq9PoPQpIO0/view?usp=sharing",
+        pdfUrl: "https://drive.google.com/file/d/15hxm3Nv1Gw8R179PXpTOmwfhDRsZoVaH/preview",
         videoUrl: "",
         quizUrl: ""
       }
