@@ -30,13 +30,13 @@ export const dpeData = [
     titulo: "Execução de sentença - alimentos",
     descricao: "Este módulo é dedicado aos procedimentos relacionados à execução de alimentos. ",
     tituloSecaoSlides: "Conceito (PDF)",
-    textoIntroducaoQuiz: "ATENÇÃO OPERADOR: Este é o quiz específico sobre os INFORMATIVOS (bloco de notas).",
+    textoIntroducaoQuiz: "",
     tituloSecaoQuiz: "",
     categoria: "",
     imagemCapa: "https://images.unsplash.com/photo-1434030216411-0b793f4b4173?auto=format&fit=crop&w=500&q=80",
     modulos: [
       {
-        idModulo: 1,
+        idModulo: 9,
         tituloModulo: "Execução de alimentos.",
         pdfUrl: "https://drive.google.com/file/d/15hxm3Nv1Gw8R179PXpTOmwfhDRsZoVaH/preview",
         videoUrl: "",
@@ -44,6 +44,49 @@ export const dpeData = [
       }
     ]
   },
+   {
+    id: 10,
+    produto: "DPE",
+    tipo: "capacitacao",
+    titulo: "Revisão de alimentos",
+    descricao: "Este módulo é dedicado aos procedimentos relacionados à revisão de alimentos. ",
+    tituloSecaoSlides: "Conceito (PDF)",
+    textoIntroducaoQuiz: "",
+    tituloSecaoQuiz: "",
+    categoria: "Conceito",
+    imagemCapa: "https://images.unsplash.com/photo-1434030216411-0b793f4b4173?auto=format&fit=crop&w=500&q=80",
+    modulos: [
+      {
+        idModulo: 10,
+        tituloModulo: "Revisão de alimentos",
+        pdfUrl: "https://drive.google.com/file/d/1mQik68HDinZwt_TtKV2LvddomvzX_jk0/preview",
+        videoUrl: "",
+        quizUrl: ""
+      }
+    ]
+  },
+  {
+    id: 11,
+    produto: "DPE",
+    tipo: "capacitacao",
+    titulo: "Rito de prisão",
+    descricao: "Este módulo é dedicado aos procedimentos relacionados ao Rito de prisão. ",
+    tituloSecaoSlides: "Conceito (PDF)",
+    textoIntroducaoQuiz: "",
+    tituloSecaoQuiz: "",
+    categoria: "Conceito",
+    imagemCapa: "https://images.unsplash.com/photo-1434030216411-0b793f4b4173?auto=format&fit=crop&w=500&q=80",
+    modulos: [
+      {
+        idModulo: 11,
+        tituloModulo: "Rito de prisão",
+        pdfUrl: "https://drive.google.com/file/d/1DHu2qq90W9n2qnk8XF3HqonyqIHAfqbz/preview",
+        videoUrl: "",
+        quizUrl: ""
+      }
+    ]
+  }
+
     
   
 ];
