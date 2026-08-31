@@ -150,7 +150,7 @@ export const telebrasData = [
     tipo: "reciclagem",
     titulo: "Bloco de notas",
     descricao: "Este módulo é dedicado aos cuidados que devem ser adotados no momento de registrar as informações no sistema.",
-    tituloSecaoSlides: "Conceito (Slide)",
+    tituloSecaoSlides: "Conceito (PDF)",
     textoIntroducaoQuiz: "ATENÇÃO OPERADOR: Este é o quiz específico sobre os INFORMATIVOS (bloco de notas).",
     tituloSecaoQuiz: "Testando Conhecimentos - Bloco de notas",
     categoria: "Conceito",
