@@ -26,7 +26,7 @@ export const dpeData = [
   {
     id: 9,
     produto: "DPE",
-    tipo: "capacitação",
+    tipo: "capacitacao",
     titulo: "Execução de sentença - alimentos",
     descricao: "Este módulo é dedicado aos procedimentos relacionados à execução de alimentos. ",
     tituloSecaoSlides: "Conceito (Slide)",
