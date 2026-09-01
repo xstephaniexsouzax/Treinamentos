@@ -85,6 +85,27 @@ export const dpeData = [
         quizUrl: ""
       }
     ]
+  },
+  {
+    id: 12,
+    produto: "DPE",
+    tipo: "capacitacao",
+    titulo: "PROJUDI",
+    descricao: "Este módulo é dedicado aos procedimentos relacionados ao PROJUDI. ",
+    tituloSecaoSlides: "Fluxograma(PDF)",
+    textoIntroducaoQuiz: "",
+    tituloSecaoQuiz: "",
+    categoria: "Conceito",
+    imagemCapa: "https://images.unsplash.com/photo-1434030216411-0b793f4b4173?auto=format&fit=crop&w=500&q=80",
+    modulos: [
+      {
+        idModulo: 12,
+        tituloModulo: "PROJUDI",
+        pdfUrl: "https://drive.google.com/file/d/1auszpNqtDfpZKduwx3oP8X3OWfT-J30M/preview",
+        videoUrl: "",
+        quizUrl: ""
+      }
+    ]
   }
 
     
