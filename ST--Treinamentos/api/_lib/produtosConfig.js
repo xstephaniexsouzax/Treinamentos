@@ -22,7 +22,9 @@ export const PRODUTOS_CONFIG = {
     monitorias: [
       'https://docs.google.com/spreadsheets/d/e/2PACX-1vTEPg5oPR9C8_vdW6C0K39gpUcD-1q8SGLy5gBRAISBN0iF02vTCEENDR7MgLC2UajbnSu4XkLXovqT/pub?gid=1528312139&single=true&output=csv',
       // Agosto
-      'https://docs.google.com/spreadsheets/d/e/2PACX-1vTEPg5oPR9C8_vdW6C0K39gpUcD-1q8SGLy5gBRAISBN0iF02vTCEENDR7MgLC2UajbnSu4XkLXovqT/pub?gid=764105353&single=true&output=csv'
+      'https://docs.google.com/spreadsheets/d/e/2PACX-1vTEPg5oPR9C8_vdW6C0K39gpUcD-1q8SGLy5gBRAISBN0iF02vTCEENDR7MgLC2UajbnSu4XkLXovqT/pub?gid=764105353&single=true&output=csv',
+      // Setembro
+      'https://docs.google.com/spreadsheets/d/e/2PACX-1vTEPg5oPR9C8_vdW6C0K39gpUcD-1q8SGLy5gBRAISBN0iF02vTCEENDR7MgLC2UajbnSu4XkLXovqT/pub?gid=1713102048&single=true&output=csv'
     ],
   },
 
@@ -33,7 +35,9 @@ export const PRODUTOS_CONFIG = {
     ],
     monitorias: [
       'https://docs.google.com/spreadsheets/d/e/2PACX-1vTHj0pibk1iQ0BmexHMvSTrccoo39JZmtXNZ9sr1kceuvCPoW4r7Bott7ycVwhl5sAVKvZK0IFNdHSC/pub?gid=0&single=true&output=csv',
-      'https://docs.google.com/spreadsheets/d/e/2PACX-1vTHj0pibk1iQ0BmexHMvSTrccoo39JZmtXNZ9sr1kceuvCPoW4r7Bott7ycVwhl5sAVKvZK0IFNdHSC/pub?gid=1582263519&single=true&output=csv'
+      'https://docs.google.com/spreadsheets/d/e/2PACX-1vTHj0pibk1iQ0BmexHMvSTrccoo39JZmtXNZ9sr1kceuvCPoW4r7Bott7ycVwhl5sAVKvZK0IFNdHSC/pub?gid=1582263519&single=true&output=csv',
+      'https://docs.google.com/spreadsheets/d/e/2PACX-1vTHj0pibk1iQ0BmexHMvSTrccoo39JZmtXNZ9sr1kceuvCPoW4r7Bott7ycVwhl5sAVKvZK0IFNdHSC/pub?gid=1528964529&single=true&output=csv'
+
     ],
   },
 
